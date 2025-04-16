@@ -39,3 +39,12 @@ def limpar_dados(df):
     if 'data' in df.columns:
         df['data'] = pd.to_datetime(df['data'])
     return df
+from statsmodels.tsa.arima.model import ARIMA
+
+def rodar_arima(serie, ordem=(1, 1, 1)):
+    """
+    Ajusta um modelo ARIMA em uma série temporal.
+    """
+    modelo = ARIMA(serie, order=ordem)
+    resultado = modelo.fit()
+    return resultado
