@@ -29,3 +29,13 @@ analiserecife/
 ├── README.md             # Documentação do projeto
 ├── requirements.txt      # Dependências do projeto
 └── .gitignore            # Arquivos ignorados pelo Git
+import pandas as pd
+
+def limpar_dados(df):
+    """
+    Limpa o DataFrame, removendo valores nulos e convertendo a coluna 'data' para datetime.
+    """
+    df = df.dropna()
+    if 'data' in df.columns:
+        df['data'] = pd.to_datetime(df['data'])
+    return df
