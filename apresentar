@@ -1,286 +1,31 @@
+# Projeto: Análise Recife
+
+Este arquivo apresenta a estrutura do projeto, as funções utilizadas para análise de dados, e exemplos de execução, incluindo visualizações e relatórios.
+
+---
+
+## Estrutura do Projeto
+
+Abaixo está a organização do repositório:
+
+```plaintext
 analiserecife/
-│
-├── data/
-│   ├── raw/
-│   └── processed/
-│
-├── notebooks/
-│   ├── EDA.ipynb
-│   └── Previsao_ARIMA.ipynb
-│
-├── src/
-│   ├── preprocessing.py
-│   ├── arima_model.py
-│   ├── ml_models.py
-│   └── visualizations.py
-│
-├── app/
+├── app/                  # Dashboard interativo
 │   └── dashboard.py
-│
-├── README.md
-├── requirements.txt
-└── .gitignoreimport pandas as pd
-from statsmodels.tsa.arima.model import ARIMA
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report
-
-# Função para limpar dados
-def limpar_dados(df):
-    """
-    Limpa o DataFrame, removendo valores nulos e convertendo a coluna 'data' para datetime.
-    """
-    df = df.dropna()
-    if 'data' in df.columns:
-        df['data'] = pd.to_datetime(df['data'])
-    return df
-
-# Função para rodar o modelo ARIMA
-def rodar_arima(serie, ordem=(1, 1, 1)):
-    """
-    Ajusta um modelo ARIMA em uma série temporal.
-
-    :param serie: Série temporal (pandas Series)
-    :param ordem: Parâmetros do modelo ARIMA (p, d, q)
-    :return: Resultados do modelo ajustado
-    """
-    modelo = ARIMA(serie, order=ordem)
-    resultado = modelo.fit()
-    return resultado
-
-# Função para rodar o modelo Random Forest
-def modelo_random_forest(X, y):
-    """
-    Ajusta um modelo Random Forest para classificação.
-
-    :param X: Variáveis independentes (DataFrame ou array)
-    :param y: Variável dependente (Series ou array)
-    :return: Relatório de classificação com métricas de desempenho
-    """
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-    clf = RandomForestClassifier(random_state=42)
-    clf.fit(X_train, y_train)
-    y_pred = clf.predict(X_test)
-    return classification_report(y_test, y_pred)import pandas as pd
-from statsmodels.tsa.arima.model import ARIMA
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report
-
-# Função para limpar dados
-def limpar_dados(df):
-    """
-    Limpa o DataFrame, removendo valores nulos e convertendo a coluna 'data' para datetime.
-    """
-    df = df.dropna()
-    if 'data' in df.columns:
-        df['data'] = pd.to_datetime(df['data'])
-    return df
-
-# Função para rodar o modelo ARIMA
-def rodar_arima(serie, ordem=(1, 1, 1)):
-    """
-    Ajusta um modelo ARIMA em uma série temporal.
-
-    :param serie: Série temporal (pandas Series)
-    :param ordem: Parâmetros do modelo ARIMA (p, d, q)
-    :return: Resultados do modelo ajustado
-    """
-    modelo = ARIMA(serie, order=ordem)
-    resultado = modelo.fit()
-    return resultado
-
-# Função para rodar o modelo Random Forest
-def modelo_random_forest(X, y):
-    """
-    Ajusta um modelo Random Forest para classificação.
-
-    :param X: Variáveis independentes (DataFrame ou array)
-    :param y: Variável dependente (Series ou array)
-    :return: Relatório de classificação com métricas de desempenho
-    """
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-    clf = RandomForestClassifier(random_state=42)
-    clf.fit(X_train, y_train)
-    y_pred = clf.predict(X_test)
-    return classification_report(y_test, y_pred)
-# Ignorar dados sensíveis
-data/raw/*
-data/processed/*
-
-# Ignorar arquivos temporários
-*.pyc
-__pycache__/
-.ipynb_checkpoints/
-
-# Ignorar configurações locais
-.env
-git init
-import matplotlib.pyplot as plt
-
-# Supondo que 'resultado' seja o modelo ajustado do ARIMA
-def plot_arima_forecast(resultado, serie_original):
-    forecast = resultado.forecast(steps=10)  # Previsão para os próximos 10 períodos
-    plt.figure(figsize=(10, 6))
-    plt.plot(serie_original, label='Série Original')
-    plt.plot(range(len(serie_original), len(serie_original) + 10), forecast, label='Previsão', color='red')
-    plt.legend()
-    plt.title("Previsão ARIMA")
-    plt.show()
-from sklearn.metrics import classification_report
-import seaborn as sns
-
-# Exemplo de uso da função modelo_random_forest
-relatorio = modelo_random_forest(X, y)
-print(relatorio)
-
-# Gráfico de matriz de confusão
-from sklearn.metrics import confusion_matrix
-
-def plot_confusion_matrix(y_test, y_pred):
-    cm = confusion_matrix(y_test, y_pred)
-    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
-    plt.title("Matriz de Confusão")
-    plt.show()
-from sklearn.metrics import classification_report
-import seaborn as sns
-
-# Exemplo de uso da função modelo_random_forest
-relatorio = modelo_random_forest(X, y)
-print(relatorio)
-
-# Gráfico de matriz de confusão
-from sklearn.metrics import confusion_matrix
-
-def plot_confusion_matrix(y_test, y_pred):
-    cm = confusion_matrix(y_test, y_pred)
-    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
-    plt.title("Matriz de Confusão")
-    plt.show()
-analiserecife/
-├── reports/
+├── data/                 # Dados do projeto
+│   ├── raw/              # Dados brutos
+│   └── processed/        # Dados processados
+├── notebooks/            # Notebooks para análise
+│   ├── EDA.ipynb         # Análise exploratória
+│   └── Previsao_ARIMA.ipynb
+├── reports/              # Relatórios e gráficos
 │   ├── graficos/
 │   └── insights/
-# Verificar as mudanças feitas
-git status
-
-# Adicionar os novos arquivos ou mudanças
-git add .
-
-# Fazer um commit descritivo
-git commit -m "Atualiza apresentação com gráficos e insights"
-
-# Enviar para o repositório remoto
-git push origin main
-import matplotlib.pyplot as plt
-import pandas as pd
-
-# Exemplo de dados fictícios
-df = pd.DataFrame({
-    "data": ["2025-01-01", "2025-01-02", "2025-01-03"],
-    "valor": [100, 120, 130]
-})
-df['data'] = pd.to_datetime(df['data'])
-
-# Plotando os dados
-plt.figure(figsize=(10, 6))
-plt.plot(df['data'], df['valor'], marker='o')
-plt.title("Exemplo de Gráfico de Linhas")
-plt.xlabel("Data")
-plt.ylabel("Valor")
-plt.grid()
-plt.show()
-analiserecife/
-├── reports/
-│   ├── graficos/
-│   └── insights/
-git add apresentar
-git commit -m "Atualiza arquivo apresentar com gráficos e insights"
-git push origin main
-import pandas as pd
-
-def limpar_dados(df):
-    """
-    Limpa o DataFrame, removendo valores nulos e convertendo a coluna 'data' para datetime.
-    """
-    df = df.dropna()
-    if 'data' in df.columns:
-        df['data'] = pd.to_datetime(df['data'])
-    return df
-from statsmodels.tsa.arima.model import ARIMA
-
-def rodar_arima(serie, ordem=(1, 1, 1)):
-    """
-    Ajusta um modelo ARIMA em uma série temporal.
-
-    :param serie: Série temporal (pandas Series)
-    :param ordem: Parâmetros do modelo ARIMA (p, d, q)
-    :return: Resultados do modelo ajustado
-    """
-    modelo = ARIMA(serie, order=ordem)
-    resultado = modelo.fit()
-    return resultado
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report
-
-def modelo_random_forest(X, y):
-    """
-    Ajusta um modelo Random Forest para classificação.
-
-    :param X: Variáveis independentes (DataFrame ou array)
-    :param y: Variável dependente (Series ou array)
-    :return: Relatório de classificação com métricas de desempenho
-    """
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-    clf = RandomForestClassifier(random_state=42)
-    clf.fit(X_train, y_train)
-    y_pred = clf.predict(X_test)
-    return classification_report(y_test, y_pred)
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-def plot_arima_forecast(resultado, serie_original):
-    """
-    Plota a previsão do modelo ARIMA em relação à série original.
-    """
-    forecast = resultado.forecast(steps=10)
-    plt.figure(figsize=(10, 6))
-    plt.plot(serie_original, label='Série Original')
-    plt.plot(range(len(serie_original), len(serie_original) + 10), forecast, label='Previsão', color='red')
-    plt.legend()
-    plt.title("Previsão ARIMA")
-    plt.show()
-
-def plot_confusion_matrix(y_test, y_pred):
-    """
-    Plota a matriz de confusão.
-    """
-    from sklearn.metrics import confusion_matrix
-    cm = confusion_matrix(y_test, y_pred)
-    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
-    plt.title("Matriz de Confusão")
-    plt.show()
-import streamlit as st
-import pandas as pd
-
-st.title("Dashboard de Análise Recife")
-
-# Exemplo de leitura de dados processados
-df = pd.read_csv("data/processed/dados.csv")
-st.write("Visualização dos dados:")
-st.dataframe(df)
-
-# Gráfico interativo
-st.line_chart(df['valor'])
-pandas
-matplotlib
-seaborn
-statsmodels
-scikit-learn
-streamlit
-pip install -r requirements.txt
-streamlit run app/dashboard.py
-git add .
-git commit -m "Adiciona organização do projeto e código geral"
-git push origin main
+├── src/                  # Código fonte
+│   ├── preprocessing.py  # Funções de pré-processamento
+│   ├── arima_model.py    # Modelo ARIMA
+│   ├── ml_models.py      # Modelo Random Forest
+│   └── visualizations.py # Funções para visualizações
+├── README.md             # Documentação do projeto
+├── requirements.txt      # Dependências do projeto
+└── .gitignore            # Arquivos ignorados pelo Git
