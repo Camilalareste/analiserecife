@@ -1,0 +1,108 @@
+analiserecife/
+│
+├── data/
+│   ├── raw/
+│   └── processed/
+│
+├── notebooks/
+│   ├── EDA.ipynb
+│   └── Previsao_ARIMA.ipynb
+│
+├── src/
+│   ├── preprocessing.py
+│   ├── arima_model.py
+│   ├── ml_models.py
+│   └── visualizations.py
+│
+├── app/
+│   └── dashboard.py
+│
+├── README.md
+├── requirements.txt
+└── .gitignoreimport pandas as pd
+from statsmodels.tsa.arima.model import ARIMA
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report
+
+# Função para limpar dados
+def limpar_dados(df):
+    """
+    Limpa o DataFrame, removendo valores nulos e convertendo a coluna 'data' para datetime.
+    """
+    df = df.dropna()
+    if 'data' in df.columns:
+        df['data'] = pd.to_datetime(df['data'])
+    return df
+
+# Função para rodar o modelo ARIMA
+def rodar_arima(serie, ordem=(1, 1, 1)):
+    """
+    Ajusta um modelo ARIMA em uma série temporal.
+
+    :param serie: Série temporal (pandas Series)
+    :param ordem: Parâmetros do modelo ARIMA (p, d, q)
+    :return: Resultados do modelo ajustado
+    """
+    modelo = ARIMA(serie, order=ordem)
+    resultado = modelo.fit()
+    return resultado
+
+# Função para rodar o modelo Random Forest
+def modelo_random_forest(X, y):
+    """
+    Ajusta um modelo Random Forest para classificação.
+
+    :param X: Variáveis independentes (DataFrame ou array)
+    :param y: Variável dependente (Series ou array)
+    :return: Relatório de classificação com métricas de desempenho
+    """
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+    clf = RandomForestClassifier(random_state=42)
+    clf.fit(X_train, y_train)
+    y_pred = clf.predict(X_test)
+    return classification_report(y_test, y_pred)import pandas as pd
+from statsmodels.tsa.arima.model import ARIMA
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report
+
+# Função para limpar dados
+def limpar_dados(df):
+    """
+    Limpa o DataFrame, removendo valores nulos e convertendo a coluna 'data' para datetime.
+    """
+    df = df.dropna()
+    if 'data' in df.columns:
+        df['data'] = pd.to_datetime(df['data'])
+    return df
+
+# Função para rodar o modelo ARIMA
+def rodar_arima(serie, ordem=(1, 1, 1)):
+    """
+    Ajusta um modelo ARIMA em uma série temporal.
+
+    :param serie: Série temporal (pandas Series)
+    :param ordem: Parâmetros do modelo ARIMA (p, d, q)
+    :return: Resultados do modelo ajustado
+    """
+    modelo = ARIMA(serie, order=ordem)
+    resultado = modelo.fit()
+    return resultado
+
+# Função para rodar o modelo Random Forest
+def modelo_random_forest(X, y):
+    """
+    Ajusta um modelo Random Forest para classificação.
+
+    :param X: Variáveis independentes (DataFrame ou array)
+    :param y: Variável dependente (Series ou array)
+    :return: Relatório de classificação com métricas de desempenho
+    """
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+    clf = RandomForestClassifier(random_state=42)
+    clf.fit(X_train, y_train)
+    y_pred = clf.predict(X_test)
+    return classification_report(y_test, y_pred)
+
+
