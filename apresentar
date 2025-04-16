@@ -48,3 +48,16 @@ def rodar_arima(serie, ordem=(1, 1, 1)):
     modelo = ARIMA(serie, order=ordem)
     resultado = modelo.fit()
     return resultado
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report
+
+def modelo_random_forest(X, y):
+    """
+    Ajusta um modelo Random Forest para classificação.
+    """
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+    clf = RandomForestClassifier(random_state=42)
+    clf.fit(X_train, y_train)
+    y_pred = clf.predict(X_test)
+    return classification_report(y_test, y_pred)
