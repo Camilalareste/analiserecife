@@ -116,6 +116,16 @@ __pycache__/
 # Ignorar configurações locais
 .env
 git init
+import matplotlib.pyplot as plt
 
+# Supondo que 'resultado' seja o modelo ajustado do ARIMA
+def plot_arima_forecast(resultado, serie_original):
+    forecast = resultado.forecast(steps=10)  # Previsão para os próximos 10 períodos
+    plt.figure(figsize=(10, 6))
+    plt.plot(serie_original, label='Série Original')
+    plt.plot(range(len(serie_original), len(serie_original) + 10), forecast, label='Previsão', color='red')
+    plt.legend()
+    plt.title("Previsão ARIMA")
+    plt.show()
 
 
