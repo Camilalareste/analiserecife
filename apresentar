@@ -104,5 +104,16 @@ def modelo_random_forest(X, y):
     clf.fit(X_train, y_train)
     y_pred = clf.predict(X_test)
     return classification_report(y_test, y_pred)
+# Ignorar dados sensíveis
+data/raw/*
+data/processed/*
+
+# Ignorar arquivos temporários
+*.pyc
+__pycache__/
+.ipynb_checkpoints/
+
+# Ignorar configurações locais
+.env
 
 
