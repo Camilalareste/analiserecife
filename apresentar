@@ -127,5 +127,48 @@ def plot_arima_forecast(resultado, serie_original):
     plt.legend()
     plt.title("Previsão ARIMA")
     plt.show()
+from sklearn.metrics import classification_report
+import seaborn as sns
 
+# Exemplo de uso da função modelo_random_forest
+relatorio = modelo_random_forest(X, y)
+print(relatorio)
 
+# Gráfico de matriz de confusão
+from sklearn.metrics import confusion_matrix
+
+def plot_confusion_matrix(y_test, y_pred):
+    cm = confusion_matrix(y_test, y_pred)
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
+    plt.title("Matriz de Confusão")
+    plt.show()
+from sklearn.metrics import classification_report
+import seaborn as sns
+
+# Exemplo de uso da função modelo_random_forest
+relatorio = modelo_random_forest(X, y)
+print(relatorio)
+
+# Gráfico de matriz de confusão
+from sklearn.metrics import confusion_matrix
+
+def plot_confusion_matrix(y_test, y_pred):
+    cm = confusion_matrix(y_test, y_pred)
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
+    plt.title("Matriz de Confusão")
+    plt.show()
+analiserecife/
+├── reports/
+│   ├── graficos/
+│   └── insights/
+# Verificar as mudanças feitas
+git status
+
+# Adicionar os novos arquivos ou mudanças
+git add .
+
+# Fazer um commit descritivo
+git commit -m "Atualiza apresentação com gráficos e insights"
+
+# Enviar para o repositório remoto
+git push origin main
