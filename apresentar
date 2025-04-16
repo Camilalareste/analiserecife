@@ -61,3 +61,15 @@ def modelo_random_forest(X, y):
     clf.fit(X_train, y_train)
     y_pred = clf.predict(X_test)
     return classification_report(y_test, y_pred)
+import streamlit as st
+import pandas as pd
+
+st.title("Dashboard de Análise Recife")
+
+# Exemplo de leitura de dados processados
+df = pd.read_csv("data/processed/dados.csv")
+st.write("Visualização dos dados:")
+st.dataframe(df)
+
+# Gráfico interativo
+st.line_chart(df['valor'])
