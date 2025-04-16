@@ -85,3 +85,14 @@ git commit -m "Organiza funções e implementa visualizações"
 
 # Enviar para o repositório remoto
 git push origin main
+
+---
+
+### **Como Substituir o Conteúdo**
+1. Apague o conteúdo atual do arquivo `apresentar`.
+2. Cole o conteúdo acima no lugar.
+3. Salve o arquivo e faça o commit no Git:
+   ```bash
+   git add apresentar
+   git commit -m "Reorganiza o arquivo apresentar com estrutura e exemplos"
+   git push origin main
