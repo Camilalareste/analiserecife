@@ -172,3 +172,28 @@ git commit -m "Atualiza apresentação com gráficos e insights"
 
 # Enviar para o repositório remoto
 git push origin main
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# Exemplo de dados fictícios
+df = pd.DataFrame({
+    "data": ["2025-01-01", "2025-01-02", "2025-01-03"],
+    "valor": [100, 120, 130]
+})
+df['data'] = pd.to_datetime(df['data'])
+
+# Plotando os dados
+plt.figure(figsize=(10, 6))
+plt.plot(df['data'], df['valor'], marker='o')
+plt.title("Exemplo de Gráfico de Linhas")
+plt.xlabel("Data")
+plt.ylabel("Valor")
+plt.grid()
+plt.show()
+analiserecife/
+├── reports/
+│   ├── graficos/
+│   └── insights/
+git add apresentar
+git commit -m "Atualiza arquivo apresentar com gráficos e insights"
+git push origin main
